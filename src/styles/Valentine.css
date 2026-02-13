@@ -1,0 +1,309 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Pinyon+Script&display=swap');
+
+:root {
+  --wine:        #6b2737;
+  --wine-dark:   #4a1825;
+  --gold:        #c9995a;
+  --gold-light:  #e8c99a;
+  --ivory:       #fdf8f0;
+  --warm-white:  #fffcf5;
+  --text:        #2e1520;
+  --muted:       #8a6b5e;
+  --shadow:      rgba(46, 21, 32, 0.22);
+  --card-radius: 1.5rem;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  min-height: 100dvh;
+}
+
+/* ── Scene ── */
+.valentine-scene {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      160deg,
+      #1a0a10 0%,
+      #3d1525 40%,
+      #6b2737 75%,
+      #9e4a30 100%
+    );
+}
+
+/* Candlelight noise texture */
+.valentine-scene::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201, 153, 90, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 70%, rgba(107, 39, 55, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 20% 50%, rgba(26, 10, 16, 0.5) 0%, transparent 70%);
+  z-index: 0;
+}
+
+/* Gold light shimmer */
+.valentine-scene::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 40% at 50% 0%,
+    rgba(232, 201, 154, 0.15) 0%,
+    transparent 70%
+  );
+  z-index: 0;
+}
+
+/* ── Floating hearts ── */
+.hearts-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.heart-float {
+  position: absolute;
+  font-size: clamp(0.8rem, 2.5vw, 1.6rem);
+  animation: floatUp linear infinite;
+  opacity: 0;
+}
+
+.heart-float:nth-child(1)  { left:  5%; animation-duration: 10s;  animation-delay: 0s;   }
+.heart-float:nth-child(2)  { left: 15%; animation-duration: 12s;  animation-delay: 2s;   }
+.heart-float:nth-child(3)  { left: 28%; animation-duration: 9s;   animation-delay: 4s;   }
+.heart-float:nth-child(4)  { left: 45%; animation-duration: 11s;  animation-delay: 1s;   }
+.heart-float:nth-child(5)  { left: 60%; animation-duration: 13s;  animation-delay: 3s;   }
+.heart-float:nth-child(6)  { left: 73%; animation-duration: 10s;  animation-delay: 5s;   }
+.heart-float:nth-child(7)  { left: 85%; animation-duration: 11s;  animation-delay: 1.5s; }
+.heart-float:nth-child(8)  { left: 93%; animation-duration: 9s;   animation-delay: 3.5s; }
+
+@keyframes floatUp {
+  0%   { transform: translateY(110vh) scale(0.5) rotate(-20deg); opacity: 0; }
+  10%  { opacity: 0.5; }
+  90%  { opacity: 0.3; }
+  100% { transform: translateY(-10vh) scale(1) rotate(20deg); opacity: 0; }
+}
+
+/* ── Card ── */
+.valentine-card {
+  position: relative;
+  z-index: 2;
+  background: rgba(253, 248, 240, 0.08);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border: 1px solid rgba(201, 153, 90, 0.35);
+  border-radius: var(--card-radius);
+  box-shadow:
+    0 0 0 1px rgba(232, 201, 154, 0.1),
+    0 12px 48px rgba(26, 10, 16, 0.6),
+    0 2px 12px rgba(201, 153, 90, 0.15) inset;
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(2rem, 5vw, 3.5rem);
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  animation: cardReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* top gold shimmer line */
+.valentine-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  border-radius: 1px;
+}
+
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(50px) scale(0.88); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Emoji ── */
+.card-emoji {
+  font-size: clamp(2.8rem, 9vw, 4rem);
+  display: block;
+  margin-bottom: 0.75rem;
+  animation: heartBeat 2s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(201, 153, 90, 0.5));
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  14%       { transform: scale(1.12); }
+  28%       { transform: scale(1); }
+  42%       { transform: scale(1.08); }
+  70%       { transform: scale(1); }
+}
+
+/* ── Typography ── */
+.card-title {
+  font-family: 'Pinyon Script', cursive;
+  font-size: clamp(3rem, 10vw, 4.5rem);
+  color: var(--gold-light);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 30px rgba(201, 153, 90, 0.4), 0 2px 4px rgba(26, 10, 16, 0.4);
+  letter-spacing: 0.01em;
+}
+
+.card-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  color: rgba(201, 153, 90, 0.7);
+  margin-bottom: 2rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+/* ── Divider ── */
+.card-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.card-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201, 153, 90, 0.4), transparent);
+}
+
+.card-divider-heart {
+  color: var(--gold);
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* ── Buttons ── */
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.btn {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 3.5vw, 1.1rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  padding: 0.8em 2.2em;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.2s ease,
+              background 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.btn-lane {
+  margin-top: 10px;
+}
+
+.btn-yes {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--wine) 100%);
+  color: var(--ivory);
+  box-shadow: 0 4px 20px rgba(201, 153, 90, 0.35), 0 0 0 1px rgba(201, 153, 90, 0.2);
+}
+.btn-yes:hover {
+  transform: scale(1.06) translateY(-2px);
+  box-shadow: 0 8px 32px rgba(201, 153, 90, 0.45), 0 0 0 1px rgba(201, 153, 90, 0.3);
+}
+.btn-yes:active { transform: scale(0.97); }
+
+.btn-no {
+  background: rgba(253, 248, 240, 0.06);
+  color: rgba(201, 153, 90, 0.7);
+  border: 1px solid rgba(201, 153, 90, 0.25);
+  box-shadow: 0 2px 8px rgba(26, 10, 16, 0.3);
+  transition: transform 0.1s ease, left 0.1s ease, top 0.1s ease, opacity 0.3s ease;
+}
+.btn-no:hover {
+  background: rgba(253, 248, 240, 0.1);
+  color: var(--gold-light);
+}
+
+.btn-no.escaping {
+  position: fixed;
+  pointer-events: auto;
+  z-index: 999;
+}
+
+/* ── Success ── */
+.success-message {
+  animation: popIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.65); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.success-emoji {
+  font-size: clamp(3.5rem, 12vw, 5rem);
+  display: block;
+  margin-bottom: 0.75rem;
+  animation: spin 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 4px 12px rgba(201, 153, 90, 0.5));
+}
+
+@keyframes spin {
+  from { transform: rotate(-30deg) scale(0.5); }
+  to   { transform: rotate(0deg) scale(1); }
+}
+
+.success-title {
+  font-family: 'Pinyon Script', cursive;
+  font-size: clamp(3rem, 10vw, 4.5rem);
+  color: var(--gold-light);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 30px rgba(201, 153, 90, 0.4);
+}
+
+.success-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: rgba(201, 153, 90, 0.75);
+  font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+  line-height: 1.7;
+}
+
+@media (min-width: 640px) {
+  .valentine-card { padding: 4rem 3.5rem; }
+  .btn-group { flex-wrap: nowrap; }
+  .btn { padding: 0.85em 2.4em; }
+}
+
+@media (min-width: 1024px) {
+  .valentine-card { max-width: 480px; }
+}
