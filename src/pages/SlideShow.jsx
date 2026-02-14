@@ -141,6 +141,11 @@ export default function SlideShow() {
       <div className={`slideshow-title-wrap${started ? " title-hidden" : ""}`}>
         <h1 className="slideshow-title">Our story</h1>
         <p className="slideshow-subtitle">every moment with you</p>
+        <p className="slideshow-subtitle">❤️ happy Valentine's day my love ❤️
+💞 it's been such an amazing journey for the past 2 years
+I've enjoyed every moment of it🥳😘
+And I can't to enjoy every moment as we grow together ❤️ <br />
+I love you ❤️</p>
       </div>
 
       {/* Play overlay */}
